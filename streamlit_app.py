@@ -1,4 +1,3 @@
-!pip install torch --user
 import streamlit as st
 import pandas as pd
 import torch
@@ -16,8 +15,6 @@ def pd_optns():
 
 pd_optns()
 
-
-
 # Modellerin isimleri
 model_name = {
     "tr": "savasy/bert-base-turkish-squad",
@@ -31,7 +28,6 @@ tokenizers = {}
 for lang in ["tr", "en"]:
     models[lang] = AutoModelForQuestionAnswering.from_pretrained(model_name[lang])
     tokenizers[lang] = AutoTokenizer.from_pretrained(model_name[lang])
-
 
 def question_answer(question, text, lang):
     if lang not in ["tr", "en"]:
@@ -50,14 +46,6 @@ def question_answer(question, text, lang):
     answer = tokenizer.convert_tokens_to_string(tokenizer.convert_ids_to_tokens(input_ids[answer_start:answer_end]))
 
     return answer
-
-
-# Örnek kullanım
-question = "Türkiye'nin başkenti neresidir?"
-text = "Türkiye'nin başkenti Ankara'dır."
-lang = "tr"
-
-print(question_answer(question, text, lang))
 
 # Streamlit Interface
 st.sidebar.title("Developer")
