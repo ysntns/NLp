@@ -13,7 +13,7 @@ st.write("Bu uygulama, bir metne dayalı olarak sorularınıza cevap vermek içi
 
 text = st.text_area("Lütfen metni giriniz:", height=300)
 question = st.text_input("Lütfen sorunuzu giriniz:")
-#lang = st.selectbox("Lütfen dili seçiniz:", ["Türkçe", "İngilizce", "Fransızca", "Almanca", "Rusça", "İspanyolca", "Arapça"])
+lang = st.selectbox("Lütfen dili seçiniz:", ["tr", "en"])
 
 if st.button("Soruyu Sor"):
     if text and question:
