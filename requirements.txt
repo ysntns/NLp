@@ -1,2 +1,2 @@
 streamlit==1.35.0
-torch==<appropriate_version>
+torch==1.9.0.
