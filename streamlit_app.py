@@ -1,5 +1,5 @@
 # streamlit_app.py
-pip install torch
+pip install torch --user
 import streamlit as st
 import pandas as pd
 import torch
