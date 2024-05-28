@@ -1,4 +1,13 @@
-# streamlit_app.py
+import os
+import subprocess
+
+# Check if torch is installed, if not install it
+try:
+    import torch
+except ImportError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "torch"])
+    import torch
+
 pip install torch --user
 import streamlit as st
 import pandas as pd
