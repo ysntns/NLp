@@ -33,7 +33,10 @@ def summarize_pdf(file, target_language):
     summaries = []
 
     for chunk in chunks:
-        summary = summarizer(chunk, max_length=150, min_length=30, do_sample=False)[0]['summary_text']
+        inputs = tokenizer(chunk, return_tensors="pt", truncation=True, max_length=1024)
+        input_ids = inputs["input_ids"]
+        summary_ids = model.generate(input_ids, num_beams=4, max_length=150, min_length=30, early_stopping=True)
+        summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
         summaries.append(summary)
 
     # Tüm özetleri birleştir
@@ -72,7 +75,8 @@ def main():
         text_input = st.text_area("Metni buraya girin")
         target_language = st.selectbox("Dil Seçin", list(languages.keys()), key="text")
         if st.button("Metni Özetle"):
-            input_ids = tokenizer(text_input, return_tensors="pt").input_ids
+            inputs = tokenizer(text_input, return_tensors="pt", truncation=True, max_length=1024)
+            input_ids = inputs["input_ids"]
             summary_ids = model.generate(input_ids, num_beams=4, max_length=100, early_stopping=True)
             summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
             translated_summary = translator.translate(summary, dest=languages[target_language]).text
